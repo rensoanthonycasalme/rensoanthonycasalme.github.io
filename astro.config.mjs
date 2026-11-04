@@ -1,10 +1,9 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 
-// Served by GitHub Pages as a project site: https://rensoanthonycasalme.github.io/ePortfolio_Casalme/
+// Served by GitHub Pages as a user site (repo rensoanthonycasalme.github.io): https://rensoanthonycasalme.github.io/
 export default defineConfig({
   site: 'https://rensoanthonycasalme.github.io',
-  base: '/ePortfolio_Casalme',
   security: {
     // Content-Security-Policy as a <meta> tag (GitHub Pages cannot send headers).
     // Astro hashes every script and <style> it emits, so nothing else can run.

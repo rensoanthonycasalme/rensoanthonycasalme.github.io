@@ -1,6 +1,6 @@
 # Renso Anthony L. Casalme · IT Portfolio
 
-**Live:** https://rensoanthonycasalme.github.io/ePortfolio_Casalme/
+**Live:** https://rensoanthonycasalme.github.io/
 
 ![Renso Anthony L. Casalme: BS Information Technology, De La Salle Lipa, Class of 2027](public/og.jpg)
 
@@ -46,7 +46,7 @@ Node.js is installed portably at `D:\tools\node` (no admin rights needed). In Gi
 ```bash
 export PATH="/d/tools/node:$PATH"
 npm install          # first time only
-npm run dev          # live preview at http://localhost:4321/ePortfolio_Casalme/
+npm run dev          # live preview at http://localhost:4321/
 npm run build        # production build into dist/
 npm run preview      # serve the production build (CSP is only active here, not in dev)
 ```
