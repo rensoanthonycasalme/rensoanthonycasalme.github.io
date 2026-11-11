@@ -227,10 +227,12 @@ function pdMotion() {
                      ['Can commute to', o.commute], ['Endorsement', o.moa]].filter(r => r[1] != null && String(r[1]).trim() !== '');
     const certs = PD.certs.slice().sort((a, b) => String(b.dateISO || '').localeCompare(String(a.dateISO || '')));
     const edu = PD.education.slice().reverse();
-    const tech = skillNames(), soft = texts('#skills .soft-tag');
+    const tech = skillNames(), soft = texts('#skills .soft-grid:not(#toolsList):not(#learnList) .soft-tag');
+    const tools = (Array.isArray(PD.tools) ? PD.tools : []).filter(t => typeof t === 'string' && t.trim());
     const tagline = [p.program, p.school, p.gradYear ? 'Class of ' + p.gradYear : ''].filter(Boolean).join(' · ');
     const focusText = focus.length > 1 ? focus.slice(0, -1).join(', ') + ' and ' + focus[focus.length - 1] : (focus[0] || '');
     const profile = 'Information Technology student available for internship' + (focusText ? ', focused on ' + focusText : '') + '.';
+    const projects = (Array.isArray(PD.projects) ? PD.projects : []).filter(pr => pr && pr.title);
 
     root.replaceChildren(...[
       pdEl('header', { class: 'pr-head' },
@@ -241,13 +243,18 @@ function pdMotion() {
       sec('Profile',
         pdEl('p', { class: 'pr-line', text: profile }),
         ojtRows.length ? pdEl('dl', { class: 'pr-kv' }, ojtRows.map(([k, v]) => [pdEl('dt', { text: k }), pdEl('dd', { text: String(v) })])) : null),
+      projects.length ? sec('Projects', projects.map(pr => [
+        row((pr.kicker ? pr.kicker.split(' · ')[0] + ': ' : '') + pr.title, [pr.team, pr.client ? 'Client: ' + pr.client : ''].filter(Boolean).join(' · '), pr.year ? String(pr.year) : ''),
+        pdEl('ul', { class: 'pr-list' }, (pr.mine || []).map(m => pdEl('li', { text: m.text })))
+      ])) : null,
       edu.length ? sec('Education', edu.map(e => row(e.school, e.sub, e.years))) : null,
       certs.length ? sec('Certificates & Trainings', certs.map(c => {
         const v = pdUrl(c.verifyUrl);
         return row(c.title, [c.issuer, c.type, v ? 'Verify: ' + pdPretty(v) : ''].filter(Boolean).join(' · '), c.date);
       })) : null,
-      (tech.length || soft.length) ? sec('Skills',
+      (tech.length || soft.length || tools.length) ? sec('Skills',
         tech.length ? pdEl('p', { class: 'pr-line' }, pdEl('b', { text: 'Technical: ' }), tech.join(' · ')) : null,
+        tools.length ? pdEl('p', { class: 'pr-line' }, pdEl('b', { text: 'Tools: ' }), tools.join(' · ')) : null,
         soft.length ? pdEl('p', { class: 'pr-line' }, pdEl('b', { text: 'Soft skills: ' }), soft.join(' · ')) : null) : null
     ].filter(Boolean));
     document.documentElement.classList.add('pr-ready');
@@ -303,7 +310,8 @@ function pdMotion() {
 /* ══════════════════════════════════════════════════════════
    FEATURE 46 — EVIDENCE SCAN (nmap-style, replaces self-rated %)
    Rows come from PD.skills. A skill is "open" only when it lists
-   evidence (a certificate id from PD.certs, or later a lab id);
+   evidence (a certificate id from PD.certs, a project id from
+   PD.projects, or a lab id);
    otherwise it is "filtered" (still learning). Each card gets a
    matching chip where the old % bar was. Runs before the features
    that bind to .skill-card so they see the final markup.
@@ -322,6 +330,10 @@ function pdMotion() {
     const t = document.getElementById('lab-' + id) || document.getElementById('lab');
     if (t) gsap.to(window, { scrollTo: { y: t, offsetY: 68 }, duration: motionOK() ? 1 : 0, ease: 'power3.inOut' });
   };
+  const goProject = id => {
+    const t = document.getElementById('project-' + id) || document.getElementById('projects');
+    if (t) gsap.to(window, { scrollTo: { y: t, offsetY: 68 }, duration: motionOK() ? 1 : 0, ease: 'power3.inOut' });
+  };
   /* one clickable label per piece of evidence */
   const evButtons = (s, cls) => (s.evidence || []).map(ev => {
     if (ev.cert) {
@@ -330,6 +342,11 @@ function pdMotion() {
       const c = certs[i];
       const b = pdEl('button', { type: 'button', class: cls, title: 'Open the certificate: ' + c.title }, (c.short || c.title) + (cls === 'scan-evbtn' && c.dateISO ? ' · ' + shortDate(c.dateISO) : ''));
       b.addEventListener('click', () => openModal(i));
+      return b;
+    }
+    if (ev.project) {
+      const b = pdEl('button', { type: 'button', class: cls, title: 'Go to the project' }, ev.label || 'Project ' + ev.project);
+      b.addEventListener('click', () => goProject(ev.project));
       return b;
     }
     if (ev.lab) {
@@ -356,7 +373,7 @@ function pdMotion() {
     const card = document.querySelector('.skill-card[data-skill="' + s.id + '"]');
     if (card) {
       const chip = pdEl('button', { type: 'button', class: 'skill-proof' + (isOpen ? '' : ' is-filtered') },
-        isOpen ? 'open · ' + (ev.length === 1 ? ev[0].textContent : ev.length + ' certificates') : 'filtered · learning');
+        isOpen ? 'open · ' + (ev.length === 1 ? ev[0].textContent : ev.length + ' pieces of evidence') : 'filtered · learning');
       chip.addEventListener('click', () => {
         const row = rows.querySelector('tr[data-skill="' + s.id + '"]');
         if (isOpen && ev.length === 1) ev[0].click();
@@ -366,7 +383,7 @@ function pdMotion() {
     }
   });
   done.append('Nmap done: ', pdEl('b', null, skills.length + ' skills'), ' scanned · ',
-              pdEl('b', null, open + ' open'), ' (certificate-backed) · ',
+              pdEl('b', null, open + ' open'), ' (backed by a certificate or project) · ',
               pdEl('b', null, filtered + ' filtered'), ' (still learning)');
   box.hidden = false;
 
@@ -498,6 +515,8 @@ function pdMotion() {
     document.querySelectorAll('.cert-card[data-id]').forEach(el => mark(el, role && role.certs.includes(el.dataset.id)));
     const lab = document.getElementById('lab');
     if (lab) lab.classList.toggle('lens-match-section', !!(role && role.lab));
+    const proj = document.getElementById('projects');
+    if (proj) proj.classList.toggle('lens-match-section', !!(role && role.project));
     if (scanBody) {
       const rows = role ? scanOrder.slice().sort((a, b) => role.skills.includes(b.dataset.skill) - role.skills.includes(a.dataset.skill)) : scanOrder;
       rows.forEach(tr => { scanBody.append(tr); tr.classList.toggle('lens-dim', !!role && !role.skills.includes(tr.dataset.skill)); });
@@ -587,6 +606,7 @@ ScrollTrigger.create({
   const roles = [
     'Aspiring IT Support / Network Intern',
     'Networking & Security Enthusiast',
+    'Capstone: VLANs · pfSense · Active Directory',
     'Cisco NetAcad Learner',
     'Python Essentials 1 & 2 Completer',
     'Continuous Learner'
@@ -1441,6 +1461,7 @@ if (!isTouchDevice) {
     about:     { c1:'rgba(184,42,51,.09)', c2:'rgba(122,26,34,.08)' },
     education: { c1:'rgba(150,32,42,.11)', c2:'rgba(184,42,51,.07)' },
     skills:    { c1:'rgba(184,42,51,.10)', c2:'rgba(94,18,24,.10)' },
+    projects:  { c1:'rgba(150,32,42,.10)', c2:'rgba(122,26,34,.09)' },
     trainings: { c1:'rgba(224,72,79,.07)', c2:'rgba(122,26,34,.08)' },
     contact:   { c1:'rgba(184,42,51,.12)', c2:'rgba(94,18,24,.12)' }
   };

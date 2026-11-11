@@ -1,5 +1,5 @@
 {
-  "_readme": "Renso: this file (src/data/portfolio.json) is the one place to edit the facts on the site. It feeds the certificate cards, flip-card backs, certificate pop-up, education details, hero stats, internship snapshot, contact links and the printable resume. Any empty string or empty list renders NOTHING on the page, so only fill a slot with something true. resume.pdf = path of a 1-page PDF you add to the repo (for example assets/Casalme_Renso_Resume.pdf); while it is empty the hero button prints the built-in resume instead. ojt.hours = required OJT hours (e.g. '486 hours'); ojt.window = when you can start and end; ojt.setup = Onsite / Hybrid / Remote; ojt.commute = cities you can reach; ojt.moa = e.g. 'DLSL endorsement letter available'. certs[].verifyUrl = the Credly / NetAcad link that proves the certificate (the Cisco images show a Cert ID at the bottom); a 'Verify credential' button appears once it is set. about.story = one or two sentences in your own words about what pulled you into IT. education[].details = short bullet facts; elementary and secondary stay empty until you confirm them. The hero '72+ Modules Completed' stat is plain HTML: change it if the 58-module Accenture certificate already includes the 14. analytics.goatcounter = your GoatCounter site code, if you decide to use it. Keep valid JSON: double quotes, no trailing commas.",
+  "_readme": "Renso: this file (src/data/portfolio.json) is the one place to edit the facts on the site. It feeds the certificate cards, flip-card backs, certificate pop-up, education details, hero stats, internship snapshot, contact links and the printable resume. Any empty string or empty list renders NOTHING on the page, so only fill a slot with something true. resume.pdf = path of a 1-page PDF you add to the repo (for example assets/Casalme_Renso_Resume.pdf); while it is empty the hero button prints the built-in resume instead. ojt.hours = required OJT hours (e.g. '486 hours'); ojt.window = when you can start and end; ojt.setup = Onsite / Hybrid / Remote; ojt.commute = cities you can reach; ojt.moa = e.g. 'DLSL endorsement letter available'. certs[].verifyUrl = the Credly / NetAcad link that proves the certificate (the Cisco images show a Cert ID at the bottom); a 'Verify credential' button appears once it is set. about.story = one or two sentences in your own words about what pulled you into IT. education[].details = short bullet facts; elementary and secondary stay empty until you confirm them. projects[0] = the capstone case study (Projects section, skill evidence { project: 'capstone' }, printable resume, terminal `show vlan brief` / `cat capstone.md`); its vlans and rules come from the final paper (Tables 4, 12 and 13), so keep them matching the paper. mine[] is only what you did yourself; teamParts and results stay credited to the team. The hero '7 VLANs I Configured' stat is plain HTML in Hero.astro. analytics.goatcounter = your GoatCounter site code, if you decide to use it. Keep valid JSON: double quotes, no trailing commas.",
   "person": {
     "name": "Renso Anthony L. Casalme",
     "school": "De La Salle Lipa",
@@ -29,6 +29,45 @@
     "Cybersecurity"
   ],
   "skills": [
+    {
+      "id": "vlan",
+      "name": "VLAN Segmentation",
+      "service": "vlan-segmentation",
+      "port": "802.1q",
+      "state": "open",
+      "evidence": [
+        {
+          "project": "capstone",
+          "label": "Capstone · 7 VLANs"
+        }
+      ]
+    },
+    {
+      "id": "firewall",
+      "name": "Firewall Policy (pfSense)",
+      "service": "pfsense-firewall",
+      "port": "any/any",
+      "state": "open",
+      "evidence": [
+        {
+          "project": "capstone",
+          "label": "Capstone · pfSense rules"
+        }
+      ]
+    },
+    {
+      "id": "ad",
+      "name": "Active Directory (assisted)",
+      "service": "active-directory",
+      "port": "636/tcp",
+      "state": "open",
+      "evidence": [
+        {
+          "project": "capstone",
+          "label": "Capstone · AD + LDAPS"
+        }
+      ]
+    },
     {
       "id": "netsec",
       "name": "Networking Security",
@@ -115,14 +154,16 @@
       "skills": [
         "support",
         "troubleshoot",
-        "comms"
+        "comms",
+        "ad"
       ],
       "certs": [
         "accenture-s2s-14",
         "accenture-s2s-58"
       ],
       "weekOne": "",
-      "toLearn": ""
+      "toLearn": "",
+      "project": true
     },
     {
       "id": "noc",
@@ -130,7 +171,9 @@
       "skills": [
         "netsec",
         "troubleshoot",
-        "python"
+        "python",
+        "vlan",
+        "firewall"
       ],
       "certs": [
         "cisco-cyber-threat-management",
@@ -139,7 +182,8 @@
       ],
       "lab": true,
       "weekOne": "",
-      "toLearn": ""
+      "toLearn": "",
+      "project": true
     },
     {
       "id": "soc",
@@ -147,7 +191,8 @@
       "skills": [
         "threats",
         "netsec",
-        "python"
+        "python",
+        "firewall"
       ],
       "certs": [
         "cisco-cyber-threat-management",
@@ -156,10 +201,22 @@
       ],
       "lab": true,
       "weekOne": "",
-      "toLearn": ""
+      "toLearn": "",
+      "project": true
     }
   ],
-  "tools": [],
+  "tools": [
+    "pfSense",
+    "TP-Link JetStream managed switch",
+    "MikroTik RouterOS (Hotspot)",
+    "Windows Server 2022",
+    "Active Directory",
+    "Nmap",
+    "Wireshark",
+    "Windows Event Viewer",
+    "ping · ipconfig · Test-NetConnection",
+    "Python"
+  ],
   "learningNext": [],
   "labs": [],
   "ipcalc": {
@@ -180,7 +237,7 @@
     "entries": []
   },
   "about": {
-    "story": ""
+    "story": "My interest started in high school, when a CIT subject first introduced me to coding and the basics of information technology. I chose IT in college because it is in demand and because I genuinely wanted to learn it. Now in my fourth year, I want to keep growing in this field and gain real-world experience."
   },
   "certs": [
     {
@@ -312,5 +369,248 @@
   ],
   "analytics": {
     "goatcounter": ""
-  }
+  },
+  "projects": [
+    {
+      "id": "capstone",
+      "kicker": "Capstone Project · 2026",
+      "title": "Academic Wi-Fi Security System",
+      "official": "NIST Cybersecurity Framework Based Authentication, Network Segmentation, and Encrypted Session Monitoring System for the Academic Wi-Fi Network of Saint Joseph College of Rosario Batangas Inc.",
+      "client": "Saint Joseph College of Rosario Batangas Inc.",
+      "year": 2026,
+      "team": "Team of 4 · I built the system with one teammate",
+      "problem": "The school’s Wi-Fi was one flat network with voucher logins: no directory accounts, no separation between students, staff and servers, no intrusion detection and no live view of who was connected.",
+      "solution": "We replaced it with a segmented network. Users sign in through a captive portal with their Active Directory account, each one lands in the VLAN of their role, and a default-deny firewall decides what that VLAN can reach.",
+      "mine": [
+        {
+          "tag": "Mine",
+          "text": "Designed and configured the seven role-based VLANs on the 802.1Q managed switch and pfSense, with an IP addressing plan and a DHCP scope for each one."
+        },
+        {
+          "tag": "Mine",
+          "text": "Wrote the pfSense default-deny inter-VLAN rules, per-role bandwidth limits and DNS-based content filtering, with every blocked attempt logged."
+        },
+        {
+          "tag": "Helped",
+          "text": "Helped set up Active Directory on Windows Server 2022, which the portal uses through RADIUS over LDAPS to check passwords and assign the VLAN."
+        }
+      ],
+      "teamParts": [
+        "Snort 3 intrusion detection",
+        "Monitoring dashboard and user portal",
+        "MikroTik Hotspot captive portal",
+        "NIST CSF 2.0 mapping and STRIDE threat register",
+        "Testing and documentation in Agile sprints"
+      ],
+      "results": [
+        {
+          "value": "15/15",
+          "label": "unit test activities"
+        },
+        {
+          "value": "5/5",
+          "label": "integration tests"
+        },
+        {
+          "value": "9/9",
+          "label": "security tests"
+        },
+        {
+          "value": "4.27/5",
+          "label": "user acceptance rating"
+        }
+      ],
+      "resultsNote": "Team results, from the test reports in the final paper. The security tests used Nmap, Wireshark and Windows network tools.",
+      "lessons": [
+        "User acceptance testing had one participant per role (3 people), and the student representative rated the clarity of role-based access as Fair (3 of 5). The paper recommends a block page that says a site is restricted by policy, and a larger UAT during the pilot.",
+        "Every performance target was met at 100 concurrent users. In the extended load test, the 200- and 300-session steps fell below the 95% login-success target, so they are repeated in the pilot.",
+        "Still to verify on the school’s production network: WPA3-Enterprise and 802.11w on the access points, Snort throughput at 100 Mbps, and the remaining paths of the lateral-movement test matrix."
+      ],
+      "stack": [
+        "pfSense CE 2.7.2",
+        "Snort 3",
+        "TP-Link JetStream L2+",
+        "MikroTik hAP lite (Hotspot)",
+        "Windows Server 2022 · AD DS",
+        "RADIUS · LDAPS (636/tcp)",
+        "NIST CSF 2.0",
+        "STRIDE"
+      ],
+      "vlans": [
+        {
+          "id": 10,
+          "name": "Servers",
+          "subnet": "10.10.10.0/24",
+          "gw": "10.10.10.1",
+          "who": "Domain controller DC01 (10.10.10.10), file server, monitoring",
+          "policy": "Reachable from Management only"
+        },
+        {
+          "id": 20,
+          "name": "Students",
+          "subnet": "10.10.20.0/22",
+          "gw": "10.10.20.1",
+          "who": "Student devices (a /22: up to 1,022 hosts)",
+          "policy": "Internet only; no peer-to-peer",
+          "limits": "5/2 Mbps · 5 GB a day · 480 min sessions · 24/7",
+          "group": "GRP-WiFi-Students",
+          "rules": "students"
+        },
+        {
+          "id": 30,
+          "name": "Faculty",
+          "subnet": "10.10.30.0/24",
+          "gw": "10.10.30.1",
+          "who": "Faculty devices",
+          "policy": "Internet and selected internal services",
+          "limits": "15/5 Mbps · 720 min sessions · 24/7",
+          "group": "GRP-WiFi-Faculty",
+          "rules": "faculty"
+        },
+        {
+          "id": 40,
+          "name": "Staff",
+          "subnet": "10.10.40.0/24",
+          "gw": "10.10.40.1",
+          "who": "Administrative staff devices",
+          "policy": "Internet and administrative servers",
+          "limits": "10/5 Mbps · 480 min sessions · Mon–Sat 06:00–22:00",
+          "group": "GRP-WiFi-Staff"
+        },
+        {
+          "id": 50,
+          "name": "Guest",
+          "subnet": "10.10.50.0/24",
+          "gw": "10.10.50.1",
+          "who": "Visitors and parents",
+          "policy": "Internet only; fully isolated",
+          "limits": "2/1 Mbps · 1 GB a day · 240 min sessions · daily 06:00–18:00",
+          "group": "GRP-WiFi-Guests",
+          "rules": "guest"
+        },
+        {
+          "id": 60,
+          "name": "IoT",
+          "subnet": "10.10.60.0/24",
+          "gw": "10.10.60.1",
+          "who": "Printers, projectors, cameras",
+          "policy": "Function-specific allowed paths only"
+        },
+        {
+          "id": 99,
+          "name": "Management",
+          "subnet": "10.10.99.0/29",
+          "gw": "10.10.99.1",
+          "who": "pfSense, the switch (10.10.99.2) and administrator workstations",
+          "policy": "Restricted to administrator workstations"
+        }
+      ],
+      "rules": {
+        "students": [
+          {
+            "n": 1,
+            "action": "pass",
+            "dst": "This firewall: DNS 53",
+            "why": "Name resolution",
+            "match": [
+              "dns"
+            ]
+          },
+          {
+            "n": 2,
+            "action": "block",
+            "dst": "INTERNAL_NETS (10.10.0.0/16)",
+            "why": "No access to servers, faculty, staff, guest or management",
+            "match": [
+              "servers",
+              "faculty",
+              "mgmt",
+              "guest"
+            ]
+          },
+          {
+            "n": 3,
+            "action": "pass",
+            "dst": "Any (internet)",
+            "why": "Internet access, subject to the student limiter",
+            "match": [
+              "internet"
+            ]
+          }
+        ],
+        "faculty": [
+          {
+            "n": 1,
+            "action": "pass",
+            "dst": "This firewall: DNS 53",
+            "why": "Name resolution",
+            "match": [
+              "dns"
+            ]
+          },
+          {
+            "n": 2,
+            "action": "pass",
+            "dst": "Allowed faculty services",
+            "why": "Selected internal services only",
+            "match": [
+              "servers"
+            ]
+          },
+          {
+            "n": 3,
+            "action": "block",
+            "dst": "INTERNAL_NETS (10.10.0.0/16)",
+            "why": "All other internal networks",
+            "match": [
+              "students",
+              "mgmt",
+              "guest"
+            ]
+          },
+          {
+            "n": 4,
+            "action": "pass",
+            "dst": "Any (internet)",
+            "why": "Internet access",
+            "match": [
+              "internet"
+            ]
+          }
+        ],
+        "guest": [
+          {
+            "n": 1,
+            "action": "pass",
+            "dst": "This firewall: DNS 53",
+            "why": "Name resolution",
+            "match": [
+              "dns"
+            ]
+          },
+          {
+            "n": 2,
+            "action": "block",
+            "dst": "INTERNAL_NETS (10.10.0.0/16)",
+            "why": "Fully isolated from every internal VLAN, including AD",
+            "match": [
+              "servers",
+              "faculty",
+              "mgmt",
+              "students"
+            ]
+          },
+          {
+            "n": 3,
+            "action": "pass",
+            "dst": "Any (internet)",
+            "why": "Internet only, subject to the guest limiter",
+            "match": [
+              "internet"
+            ]
+          }
+        ]
+      }
+    }
+  ]
 }

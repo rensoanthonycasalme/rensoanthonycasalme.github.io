@@ -4,7 +4,7 @@
     <div class="s-head gsap-reveal">
       <span class="s-label"><i class="fa-solid fa-code" aria-hidden="true"></i> Technical Competencies</span>
       <h2 class="s-title glitch" data-text="Skills &amp; Expertise">Skills &amp; Expertise</h2>
-      <p class="s-sub">A blend of technical knowledge and professional soft skills developed through academic study and industry-aligned training.</p>
+      <p class="s-sub">What I can do, and the proof behind it: my capstone project for the networking skills, certificates for the rest.</p>
       <div class="divider"></div>
     </div>
     <!-- FEATURE 46 — evidence scan: rendered from PD.skills; every "open" row links to the certificate that backs it -->
@@ -12,7 +12,7 @@
       <div class="scan-bar" aria-hidden="true"><span></span><span></span><span></span><b>renso@dlsl: ~</b></div>
       <div class="scan-body">
         <p class="scan-cmd"><span class="scan-prompt" aria-hidden="true">$</span> nmap -sV --script=evidence renso</p>
-        <p class="scan-meta">Nmap scan report for renso (BSIT, De La Salle Lipa)<br>Host is up. Each open port is backed by a certificate on this page; select the evidence to open it.</p>
+        <p class="scan-meta">Nmap scan report for renso (BSIT, De La Salle Lipa)<br>Host is up. Each open port is backed by a certificate or the capstone project on this page; select the evidence to open it.</p>
         <div class="scan-tablewrap">
           <table class="scan-table">
             <caption class="sr-only">Skills and the evidence behind each one</caption>
@@ -25,6 +25,22 @@
     </div>
 
     <div class="skills-grid" id="skillsGrid">
+      <!-- first three: backed by the capstone (see Projects.astro); the rest by certificates -->
+      <div class="skill-card gsap-skill" data-skill="vlan">
+        <div class="skill-icon"><i class="fa-solid fa-sitemap" aria-hidden="true"></i></div>
+        <div class="skill-name">VLAN Segmentation</div>
+        <div class="skill-desc">Designed and configured seven role-based VLANs on an 802.1Q managed switch and pfSense for my capstone, with an addressing plan for each.</div>
+      </div>
+      <div class="skill-card gsap-skill" data-skill="firewall">
+        <div class="skill-icon"><i class="fa-solid fa-fire-flame-curved" aria-hidden="true"></i></div>
+        <div class="skill-name">Firewall Policy</div>
+        <div class="skill-desc">Wrote default-deny inter-VLAN rules in pfSense, plus per-role bandwidth limits and DNS-based filtering, with blocked attempts logged.</div>
+      </div>
+      <div class="skill-card gsap-skill" data-skill="ad">
+        <div class="skill-icon"><i class="fa-solid fa-id-card" aria-hidden="true"></i></div>
+        <div class="skill-name">Active Directory</div>
+        <div class="skill-desc">Helped set up Active Directory on Windows Server 2022, which the Wi-Fi portal uses through RADIUS over LDAPS to sign users in.</div>
+      </div>
       <div class="skill-card gsap-skill" data-skill="netsec">
         <div class="skill-icon"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i></div>
         <div class="skill-name">Networking Security</div>

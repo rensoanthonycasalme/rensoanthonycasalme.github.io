@@ -8,9 +8,10 @@ Personal portfolio of a BS Information Technology student at De La Salle Lipa (C
 
 ## What's on the site
 
-- **Evidence scan:** skills shown as `nmap` output; every "open" skill links to the certificate that backs it, instead of self-rated percentages.
+- **Featured project:** the capstone (an AD-authenticated, seven-VLAN Wi-Fi network for a school) as a case study: what I did vs. what the team did, a clickable topology and VLAN explorer, a firewall rule check that walks pfSense's first-match rules, team test results and the limits found in testing.
+- **Evidence scan:** skills shown as `nmap` output; every "open" skill links to the certificate or project that backs it, instead of self-rated percentages.
 - **Networking Lab:** a Break/Fix lab (find the misconfiguration that stops a ping: gateway, mask, route, ACL, DNS) and a Subnet Lab (IPv4 calculator that shows the binary AND, with a quiz).
-- **Terminal:** press <kbd>`</kbd> or the `>_` button. Try `help`, `traceroute renso`, `ping`, `curl -I`, `dig github.com`, `audit`.
+- **Terminal:** press <kbd>`</kbd> or the `>_` button. Try `help`, `show vlan brief`, `cat capstone.md`, `traceroute renso`, `ping`, `curl -I`, `dig github.com`, `audit`.
 - **Role lens:** `?role=helpdesk`, `?role=noc` or `?role=soc` highlights what matters for that kind of internship.
 - **Security self-check:** footer button; real checks of this page (HTTPS, HSTS, CSP, third-party requests, cookies…) run in your browser.
 - **Recruiter CTF:** 3 flags are hidden on the site. The footer explains the rules.
@@ -36,6 +37,7 @@ Almost everything you'd want to change lives in **`src/data/portfolio.json`**. S
 | `netlab.hint`, `netlab.explore` | Your own troubleshooting method, and your real Packet Tracer build (outputs, addressing table, .pkt file). |
 | `ipcalc` | `repo` and `code` of a Python subnet calculator **you** wrote. |
 | `about.story` | A short story, in your words, about why IT. |
+| `projects` | The capstone case study. `mine` = only your own work; `teamParts` / `results` stay credited to the team; `vlans` / `rules` match the final paper. |
 
 Section text and layout live in `src/components/*.astro`; styles in `src/styles/`; behaviour in `src/scripts/`.
 
@@ -63,10 +65,10 @@ src/
   pages/index.astro        the page: composes the sections, prepares images, JSON-LD
   pages/404.astro          "Destination host unreachable"
   layouts/Base.astro       <head>, fonts, icons, link-preview tags, stylesheets
-  components/              one file per section (Hero, Skills, Lab, Trainings, Terminal…)
+  components/              one file per section (Hero, Skills, Projects, Lab, Trainings, Terminal…)
   data/portfolio.json      all the content
-  scripts/                 site.js · labs/ · terminal.js · ctf.js · audit.js · motion.js
-  styles/                  01-tokens … 07-terminal (imported in order)
+  scripts/                 site.js · labs/ · projects.js · terminal.js · ctf.js · audit.js · motion.js
+  styles/                  01-tokens … 08-projects (imported in order)
   assets/img/              photo and certificates (optimized to WebP at build time)
 public/                    robots.txt, sitemap.xml, og.jpg, icons
 ```

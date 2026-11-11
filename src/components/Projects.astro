@@ -1,0 +1,203 @@
+---
+/* FEATURE 57 — FEATURED PROJECT: the capstone case study, rendered at build time from
+   portfolio.json (projects[0]) so it reads fine without JS. src/scripts/projects.js adds
+   the VLAN explorer and the firewall rule check on top of this markup. */
+import data from '../data/portfolio.json';
+const p = data.projects[0];
+const vlanById = Object.fromEntries(p.vlans.map((v) => [v.id, v]));
+const ruleSets = [
+  { key: 'students', vlan: vlanById[20] },
+  { key: 'faculty', vlan: vlanById[30] },
+  { key: 'guest', vlan: vlanById[50] },
+];
+/* destinations for the rule check; match ids are the ones used in portfolio.json rules[].match */
+const dests = [
+  { id: 'internet', label: 'A website on the internet' },
+  { id: 'dns', label: 'DNS on the firewall' },
+  { id: 'servers', label: 'DC01, Servers VLAN 10' },
+  { id: 'students', label: 'A student device, VLAN 20' },
+  { id: 'faculty', label: 'A faculty device, VLAN 30' },
+  { id: 'guest', label: 'A guest device, VLAN 50' },
+  { id: 'mgmt', label: 'Management VLAN 99' },
+];
+/* topology: device row, left to right; x = centre of each box in the 800-wide viewBox */
+const devices = [
+  { v: 10, top: 'VLAN 10', name: 'DC01 · AD', sub: '10.10.10.10', own: 'helped' },
+  { v: 'ap', top: 'Wi-Fi', name: 'SJC-Hotspot', sub: 'MikroTik hAP lite', own: 'team' },
+  ...[20, 30, 40, 50, 60, 99].map((id) => ({ v: id, top: 'VLAN ' + id, name: vlanById[id].name, sub: vlanById[id].subnet })),
+].map((d, i) => ({ ...d, x: 60 + i * 96 }));
+---
+<!-- ════════════════════ PROJECTS ══════════════════════ -->
+<section id="projects">
+  <div class="container">
+    <div class="s-head gsap-reveal">
+      <span class="s-label"><i class="fa-solid fa-diagram-project" aria-hidden="true"></i> Featured Project</span>
+      <h2 class="s-title glitch" data-text="Capstone Case Study">Capstone Case Study</h2>
+      <p class="s-sub">A real network for a real client, built by me and one teammate. What I did, what the team did, and what still needs work.</p>
+      <div class="divider"></div>
+    </div>
+
+    <article class="cs gsap-reveal" id="project-capstone" aria-labelledby="csTitle">
+      <header class="cs-head">
+        <p class="cs-kicker">{p.kicker} · Client: {p.client}</p>
+        <h3 class="cs-title" id="csTitle">{p.title}</h3>
+        <p class="cs-official">{p.official}</p>
+        <p class="cs-team"><i class="fa-solid fa-user-group" aria-hidden="true"></i> {p.team}</p>
+      </header>
+
+      <div class="cs-story">
+        <div><h4 class="cs-h">The problem</h4><p>{p.problem}</p></div>
+        <div><h4 class="cs-h">What we built</h4><p>{p.solution}</p></div>
+      </div>
+
+      <div class="cs-split">
+        <div class="cs-box cs-mine">
+          <h4 class="cs-h"><i class="fa-solid fa-user" aria-hidden="true"></i> My part</h4>
+          <ul class="cs-list">
+            {p.mine.map((m) => (
+              <li><span class={'cs-tag ' + (m.tag === 'Mine' ? 'is-mine' : 'is-helped')}>{m.tag}</span><span>{m.text}</span></li>
+            ))}
+          </ul>
+        </div>
+        <div class="cs-box">
+          <h4 class="cs-h"><i class="fa-solid fa-users" aria-hidden="true"></i> Built by the team</h4>
+          <ul class="cs-list cs-list-team">
+            {p.teamParts.map((t) => <li><span class="cs-tag is-team">Team</span><span>{t}</span></li>)}
+          </ul>
+        </div>
+      </div>
+
+      <!-- topology + VLAN explorer -->
+      <div class="cs-topo">
+        <h4 class="cs-h">Network topology</h4>
+        <p class="cs-note">Simplified from the lab demonstration topology in the final paper. Pick a VLAN to see its subnet, who is in it and what it may reach.</p>
+        <div class="topo-scroll">
+          <svg class="topo" id="topoSvg" viewBox="0 0 800 420" role="img" aria-labelledby="topoDesc">
+            <desc id="topoDesc">The internet connects to pfSense with Snort 3, the gateway of every VLAN. An 802.1Q trunk carries VLANs 10, 20, 30, 40, 50, 60 and 99 to a TP-Link JetStream managed switch. Its access ports connect the domain controller DC01 in VLAN 10, the MikroTik SJC-Hotspot access point, and the Students, Faculty, Staff, Guest, IoT and Management VLANs. The hotspot checks logins against DC01 through RADIUS and LDAPS.</desc>
+            <g class="topo-link is-trunk">
+              <line x1="400" y1="52" x2="400" y2="76" />
+              <line x1="400" y1="140" x2="400" y2="194" />
+              <line x1="400" y1="250" x2="400" y2="282" />
+            </g>
+            <line class="topo-link topo-bus" x1="60" y1="282" x2="732" y2="282" />
+            {devices.map((d) => <line class="topo-link topo-drop" data-v={d.v} x1={d.x} y1="282" x2={d.x} y2="304" />)}
+            <path class="topo-radius" d="M156,376 Q108,408 60,376" />
+            <text class="topo-tiny" x="108" y="414" text-anchor="middle">RADIUS · LDAPS 636</text>
+
+            <g class="topo-cloud">
+              <rect x="340" y="14" width="120" height="38" rx="19" />
+              <text class="topo-name" x="400" y="38" text-anchor="middle">Internet</text>
+            </g>
+            <g class="topo-node is-mine topo-core">
+              <rect x="276" y="76" width="248" height="64" rx="10" />
+              <text class="topo-name" x="400" y="102" text-anchor="middle">pfSense CE 2.7.2 firewall</text>
+              <text class="topo-sub" x="400" y="122" text-anchor="middle">gateway .1 on every VLAN · Snort 3 IDS (team)</text>
+            </g>
+            <text class="topo-tiny topo-trunk-label" x="412" y="172">802.1Q trunk · VLANs 10 20 30 40 50 60 99</text>
+            <g class="topo-node is-mine topo-core">
+              <rect x="276" y="194" width="248" height="56" rx="10" />
+              <text class="topo-name" x="400" y="218" text-anchor="middle">TP-Link JetStream L2+</text>
+              <text class="topo-sub" x="400" y="238" text-anchor="middle">10.10.99.2 · one access port per VLAN</text>
+            </g>
+            <g class="topo-badge is-mine"><rect x="536" y="96" width="70" height="20" rx="10" /><text x="571" y="110" text-anchor="middle">MY PART</text></g>
+            <g class="topo-badge is-mine"><rect x="536" y="212" width="70" height="20" rx="10" /><text x="571" y="226" text-anchor="middle">MY PART</text></g>
+
+            {devices.map((d) => (
+              <g class={'topo-node topo-dev' + (d.own ? ' is-' + d.own : '')} data-v={d.v}>
+                <rect x={d.x - 44} y="304" width="88" height="72" rx="9" />
+                <text class="topo-tiny topo-vid" x={d.x} y="324" text-anchor="middle">{d.top}</text>
+                <text class="topo-name topo-dname" x={d.x} y="344" text-anchor="middle">{d.name}</text>
+                <text class="topo-tiny" x={d.x} y="363" text-anchor="middle">{d.sub}</text>
+              </g>
+            ))}
+          </svg>
+        </div>
+        <ul class="topo-legend" aria-label="Legend">
+          <li><span class="lg is-mine"></span> My part</li>
+          <li><span class="lg is-helped"></span> I helped</li>
+          <li><span class="lg is-team"></span> Teammate / team</li>
+        </ul>
+
+        <div class="vx" id="vlanExplorer">
+          <div class="vx-btns" role="group" aria-label="Choose a VLAN">
+            {p.vlans.map((v, i) => (
+              <button type="button" class="vx-btn" data-v={v.id} aria-pressed={i === 1 ? 'true' : 'false'} aria-controls="vxPanel">
+                <b>{v.id}</b> {v.name}
+              </button>
+            ))}
+          </div>
+          <div class="vx-panels" id="vxPanel" aria-live="polite">
+            {p.vlans.map((v, i) => (
+              <dl class="vx-panel" data-v={v.id} hidden={i !== 1}>
+                <div class="vx-row vx-wide"><dt>VLAN</dt><dd><b>{v.id} · {v.name}</b></dd></div>
+                <div class="vx-row"><dt>Subnet</dt><dd><code>{v.subnet}</code></dd></div>
+                <div class="vx-row"><dt>Gateway</dt><dd><code>{v.gw}</code> (pfSense)</dd></div>
+                <div class="vx-row"><dt>Who</dt><dd>{v.who}</dd></div>
+                <div class="vx-row"><dt>Policy</dt><dd>{v.policy}</dd></div>
+                {v.limits && <div class="vx-row"><dt>Limits</dt><dd>{v.limits}</dd></div>}
+                {v.group && <div class="vx-row"><dt>AD group</dt><dd><code>{v.group}</code></dd></div>}
+                {v.rules && <div class="vx-row vx-wide"><dt>Rules</dt><dd><button type="button" class="vx-rules" data-src={v.rules}>Test this VLAN’s firewall rules <i class="fa-solid fa-arrow-down" aria-hidden="true"></i></button></dd></div>}
+              </dl>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <!-- firewall rule check: pfSense evaluates top to bottom and stops at the first match -->
+      <div class="fw" id="fwCheck">
+        <h4 class="cs-h">Firewall rule check</h4>
+        <p class="cs-note">The rule sets I wrote in pfSense. Rules are checked top to bottom and the first match wins; anything that matches nothing is blocked. Pick where a packet comes from and where it is going.</p>
+        <div class="fw-controls" hidden>
+          <label class="fw-field"><span>From</span>
+            <select id="fwSrc">{ruleSets.map((r) => <option value={r.key}>{r.vlan.name} (VLAN {r.vlan.id})</option>)}</select>
+          </label>
+          <label class="fw-field"><span>To</span>
+            <select id="fwDst">{dests.map((d) => <option value={d.id} selected={d.id === 'servers'}>{d.label}</option>)}</select>
+          </label>
+        </div>
+        <p class="fw-verdict" id="fwVerdict" role="status" aria-live="polite"></p>
+        {ruleSets.map((r) => (
+          <div class="fw-tablewrap" data-src={r.key}>
+            <table class="fw-table">
+              <caption>Interface {r.vlan.name.toUpperCase()} (VLAN {r.vlan.id}) · source: VLAN {r.vlan.id} net</caption>
+              <thead><tr><th scope="col">#</th><th scope="col">Action</th><th scope="col">Destination</th><th scope="col">Purpose</th></tr></thead>
+              <tbody>
+                {p.rules[r.key].map((rule) => (
+                  <tr data-n={rule.n} data-match={rule.match.join(' ')}>
+                    <td class="fw-n">{rule.n}</td>
+                    <td><span class={'fw-act is-' + rule.action}>{rule.action === 'block' ? 'Block + log' : 'Pass'}</span></td>
+                    <td><code>{rule.dst}</code></td>
+                    <td>{rule.why}</td>
+                  </tr>
+                ))}
+                <tr data-n="deny" data-match="*">
+                  <td class="fw-n">–</td>
+                  <td><span class="fw-act is-block">Block</span></td>
+                  <td><code>Any</code></td>
+                  <td>Implicit default deny: nothing above matched</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        ))}
+      </div>
+
+      <div class="cs-results">
+        <h4 class="cs-h">Results <span class="cs-h-note">· team</span></h4>
+        <div class="cs-tiles">
+          {p.results.map((r) => <div class="cs-tile"><b>{r.value}</b><span>{r.label}</span></div>)}
+        </div>
+        <p class="cs-note">{p.resultsNote}</p>
+      </div>
+
+      <div class="cs-lessons">
+        <h4 class="cs-h"><i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i> Limits and next steps</h4>
+        <ul>{p.lessons.map((l) => <li>{l}</li>)}</ul>
+      </div>
+
+      <div class="cs-stack" aria-label="Technologies">
+        {p.stack.map((s) => <span>{s}</span>)}
+      </div>
+    </article>
+  </div>
+</section>

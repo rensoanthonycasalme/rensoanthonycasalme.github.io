@@ -376,6 +376,8 @@
 .pr-kv dt { font-weight:700; color:#141012; }
 .pr-line { margin-top:2pt; }
 .pr-line b { color:#141012; }
+.pr-list { margin:2pt 0 0 14pt; padding:0; }
+.pr-list li { margin:1pt 0; }
 
 /* ══════════════════════════════════════════════════════════
    FEATURE 44 — CONTACT: COPY EMAIL + PHONE OVERFLOW FIX

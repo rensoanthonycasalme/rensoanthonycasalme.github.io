@@ -1,0 +1,164 @@
+/* ═══════════════════════════════════════════════════════
+   FEATURE 57 — FEATURED PROJECT (capstone case study)
+   topology SVG · VLAN explorer · firewall rule check
+═══════════════════════════════════════════════════════ */
+.cs {
+  --cs-mine: var(--accent);
+  --cs-helped: #c98a2b;
+  --cs-team: var(--muted);
+  --cs-ok: #15803d;
+  background:var(--card); border:1px solid var(--border); border-radius:var(--r-lg);
+  box-shadow:var(--sh-sm); padding:clamp(20px,3.4vw,40px); color:var(--body);
+  scroll-margin-top:calc(var(--nav-h) + 16px);
+}
+[data-theme="dark"] .cs { --cs-helped:#e0a84a; --cs-ok:#4ade80; }
+.cs > * + * { margin-top:clamp(26px,3.4vw,38px); }
+.cs :focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
+.cs code { font-family:var(--fm); font-size:.86em; color:var(--txt); }
+
+/* header */
+.cs-kicker { font-family:var(--fm); font-size:.74rem; letter-spacing:.04em; color:var(--accent); margin-bottom:8px; }
+.cs-title { font-family:var(--fd); font-weight:800; font-size:clamp(1.4rem,2.6vw,2rem); line-height:1.15; color:var(--txt); }
+.cs-official { margin-top:8px; font-size:.86rem; font-style:italic; color:var(--muted); max-width:78ch; line-height:1.55; }
+.cs-team { margin-top:12px; display:inline-flex; align-items:center; gap:8px; font-size:.84rem; font-weight:600; color:var(--txt);
+  border:1px solid var(--border); border-radius:20px; padding:5px 13px; background:var(--bg3); }
+.cs-team i { color:var(--accent); }
+
+.cs-h { font-family:var(--fd); font-weight:700; font-size:1.02rem; color:var(--txt); margin-bottom:10px; display:flex; align-items:center; gap:8px; }
+.cs-h i { color:var(--accent); font-size:.9em; }
+.cs-h-note { font-family:var(--fb); font-weight:500; font-size:.82rem; color:var(--muted); }
+.cs-note { font-size:.84rem; color:var(--muted); line-height:1.6; max-width:72ch; }
+.cs p { line-height:1.7; }
+
+/* problem / solution */
+.cs-story { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr)); gap:18px 32px; }
+.cs-story p { font-size:.94rem; }
+
+/* my part vs team */
+.cs-split { display:grid; grid-template-columns:1.25fr 1fr; gap:18px; }
+.cs-box { border:1px solid var(--border); border-radius:var(--r); padding:18px 20px; background:var(--bg); min-width:0; }
+.cs-mine { border-color:rgba(var(--accentRGB),.45); box-shadow:inset 3px 0 0 var(--accent); }
+.cs-list { list-style:none; display:grid; gap:10px; }
+.cs-list li { display:flex; gap:10px; align-items:flex-start; font-size:.9rem; line-height:1.6; }
+.cs-list-team li { font-size:.86rem; color:var(--muted); }
+.cs-tag { flex:0 0 auto; min-width:58px; text-align:center; margin-top:2px; font-family:var(--fm); font-size:.64rem; font-weight:700;
+  letter-spacing:.06em; text-transform:uppercase; border-radius:20px; padding:2px 8px; border:1px solid currentColor; }
+.cs-tag.is-mine { color:var(--cs-mine); background:var(--glow); }
+.cs-tag.is-helped { color:var(--cs-helped); }
+.cs-tag.is-team { color:var(--cs-team); }
+
+/* topology */
+.topo-scroll { margin-top:14px; overflow-x:auto; border:1px solid var(--border); border-radius:var(--r); background:var(--bg);
+  -webkit-overflow-scrolling:touch; }
+.topo { display:block; width:100%; max-width:880px; min-width:660px; height:auto; margin:0 auto; }
+.topo text { font-family:var(--fb); fill:var(--body); }
+.topo .topo-name { font-size:12.5px; font-weight:700; fill:var(--txt); }
+.topo .topo-dname { font-size:11.5px; }
+.topo .topo-sub { font-size:10.5px; fill:var(--muted); }
+.topo .topo-tiny { font-family:var(--fm); font-size:9px; fill:var(--muted); }
+.topo .topo-vid { fill:var(--accent); font-weight:700; }
+.topo-link { stroke:var(--border); stroke-width:2; fill:none; transition:stroke .25s, stroke-width .25s; }
+[data-theme="dark"] .topo-link { stroke:#3a2d31; }
+.topo-link.is-trunk line, .topo-link.is-trunk { stroke:rgba(var(--accentRGB),.55); stroke-width:3; }
+.topo-radius { fill:none; stroke:var(--cs-helped); stroke-width:1.5; stroke-dasharray:4 4; }
+.topo-cloud rect { fill:var(--bg3); stroke:var(--border); stroke-width:1.5; }
+.topo-node rect { fill:var(--card); stroke:var(--border); stroke-width:1.5; transition:stroke .25s, fill .25s; }
+.topo-node.is-mine rect { stroke:var(--cs-mine); stroke-width:2; }
+.topo-node.is-helped rect { stroke:var(--cs-helped); stroke-width:2; }
+.topo-node.is-team rect { stroke-dasharray:5 3; }
+.topo-badge rect { fill:var(--accent-fill); }
+.topo-badge text { font-family:var(--fm); font-size:9px; font-weight:700; fill:#fff; letter-spacing:.06em; }
+.topo-dev { cursor:pointer; }
+.topo-dev:hover rect { stroke:var(--accent); }
+.topo-dev.is-on rect { fill:var(--glow); stroke:var(--accent); stroke-width:2.5; }
+.topo-drop.is-on { stroke:var(--accent); stroke-width:3; }
+.topo-legend { list-style:none; display:flex; flex-wrap:wrap; gap:6px 18px; margin-top:10px; font-size:.78rem; color:var(--muted); }
+.topo-legend li { display:flex; align-items:center; gap:7px; }
+.lg { width:14px; height:10px; border-radius:3px; border:2px solid; }
+.lg.is-mine { border-color:var(--cs-mine); }
+.lg.is-helped { border-color:var(--cs-helped); }
+.lg.is-team { border-color:var(--cs-team); border-style:dashed; }
+
+/* VLAN explorer */
+.vx { margin-top:18px; display:grid; gap:12px; }
+.vx-btns { display:flex; flex-wrap:wrap; gap:8px; }
+.vx-btn { min-height:40px; padding:7px 13px; border-radius:var(--r); border:1px solid var(--border); background:var(--bg);
+  color:var(--body); font:500 .84rem/1.2 var(--fb); cursor:pointer; transition:border-color .2s, background .2s, color .2s; }
+.vx-btn b { font-family:var(--fm); color:var(--accent); margin-right:3px; }
+.vx-btn:hover { border-color:var(--accent); }
+.vx-btn[aria-pressed="true"] { background:var(--glow); border-color:var(--accent); color:var(--txt); }
+.vx-panel { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr)); gap:12px 22px; border:1px solid var(--border); border-radius:var(--r);
+  padding:16px 18px; background:var(--bg); margin:0; }
+.vx-panel[hidden] { display:none; }
+.vx-row { min-width:0; }
+.vx-wide { grid-column:1 / -1; }
+.vx-row dt { font-family:var(--fm); font-size:.66rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); }
+.vx-row dd { margin:2px 0 0; font-size:.88rem; color:var(--body); overflow-wrap:anywhere; }
+.vx-row dd b { color:var(--txt); }
+.vx-rules { background:none; border:none; padding:0; color:var(--accent); font:600 .86rem var(--fb); cursor:pointer; }
+.vx-rules:hover { text-decoration:underline; }
+/* no JS: every VLAN is listed, the buttons do nothing */
+html:not(.vx-ready) .vx-btns { display:none; }
+html:not(.vx-ready) .vx-panel[hidden] { display:grid; }
+html:not(.vx-ready) .vx-panels { display:grid; gap:10px; }
+html:not(.vx-ready) .vx-rules { display:none; }
+
+/* firewall rule check */
+.fw { scroll-margin-top:calc(var(--nav-h) + 16px); }
+.fw-controls { display:flex; flex-wrap:wrap; gap:12px 16px; margin:14px 0 12px; }
+.fw-controls[hidden] { display:none; }
+.fw-field { display:flex; flex-direction:column; gap:5px; flex:1 1 220px; min-width:0; }
+.fw-field span { font-family:var(--fm); font-size:.66rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); }
+.fw-field select { min-height:42px; width:100%; padding:8px 12px; border-radius:var(--r); border:1px solid var(--border);
+  background:var(--bg); color:var(--txt); font:500 .9rem var(--fb); }
+.fw-verdict { font-size:.92rem; line-height:1.6; padding:12px 16px; border-radius:var(--r); background:var(--bg3); border-left:3px solid var(--muted); }
+.fw-verdict:empty { display:none; }
+.fw-verdict.is-pass { border-left-color:var(--cs-ok); }
+.fw-verdict.is-block { border-left-color:var(--accent); }
+.fw-verdict b { color:var(--txt); }
+.fw-tablewrap { margin-top:12px; overflow-x:auto; border:1px solid var(--border); border-radius:var(--r); }
+.fw-tablewrap[hidden] { display:none; }
+.fw-table { width:100%; min-width:560px; border-collapse:collapse; font-size:.85rem; }
+.fw-table caption { text-align:left; padding:10px 14px; font-family:var(--fm); font-size:.72rem; color:var(--muted); background:var(--bg3); }
+.fw-table th { text-align:left; font-family:var(--fm); font-size:.66rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted);
+  padding:8px 14px; border-bottom:1px solid var(--border); }
+.fw-table td { padding:9px 14px; border-bottom:1px solid var(--border); vertical-align:top; color:var(--body); transition:background .2s, opacity .2s; }
+.fw-table tr:last-child td { border-bottom:none; }
+.fw-n { font-family:var(--fm); width:52px; white-space:nowrap; }
+.fw-act { font-family:var(--fm); font-size:.72rem; font-weight:700; white-space:nowrap; }
+.fw-act.is-pass { color:var(--cs-ok); }
+.fw-act.is-block { color:var(--accent); }
+.fw-table tr.is-skip td { opacity:.5; }
+.fw-table tr.is-hit td { background:var(--glow); color:var(--txt); }
+.fw-table tr.is-hit .fw-n::before { content:'▶ '; color:var(--accent); }
+.fw-table tr.is-unused td { opacity:.35; }
+
+/* results */
+.cs-tiles { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; }
+.cs-tile { border:1px solid var(--border); border-radius:var(--r); padding:16px; background:var(--bg); display:flex; flex-direction:column; gap:4px; }
+.cs-tile b { font-family:var(--fd); font-size:1.55rem; font-weight:800; color:var(--txt); line-height:1.1; font-variant-numeric:tabular-nums; }
+.cs-tile span { font-size:.8rem; color:var(--muted); }
+.cs-results .cs-note { margin-top:10px; }
+
+/* limits */
+.cs-lessons { border:1px dashed var(--border); border-radius:var(--r); padding:18px 20px; }
+.cs-lessons .cs-h i { color:var(--cs-helped); }
+.cs-lessons ul { padding-left:20px; display:grid; gap:8px; }
+.cs-lessons li { font-size:.88rem; line-height:1.65; }
+
+/* stack */
+.cs-stack { display:flex; flex-wrap:wrap; gap:8px; }
+.cs-stack span { font-family:var(--fm); font-size:.72rem; color:var(--body); border:1px solid var(--border); border-radius:20px; padding:4px 11px; background:var(--bg); }
+
+/* role lens: NOC / SOC / IT Support all count the capstone */
+#projects.lens-match-section .cs { border-color:rgba(var(--accentRGB),.55); box-shadow:0 0 0 3px var(--glow), var(--sh-sm); }
+
+@media (max-width:860px) {
+  .cs-split { grid-template-columns:1fr; }
+  .cs-tiles { grid-template-columns:repeat(2,minmax(0,1fr)); }
+}
+@media (max-width:600px) {
+  .cs-box { padding:16px; }
+  .vx-panel { grid-template-columns:1fr; }
+  .cs-tile b { font-size:1.3rem; }
+}
