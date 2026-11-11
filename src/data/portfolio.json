@@ -1,5 +1,5 @@
 {
-  "_readme": "Renso: this file (src/data/portfolio.json) is the one place to edit the facts on the site. It feeds the certificate cards, flip-card backs, certificate pop-up, education details, hero stats, internship snapshot, contact links and the printable resume. Any empty string or empty list renders NOTHING on the page, so only fill a slot with something true. resume.pdf = path of a 1-page PDF you add to the repo (for example assets/Casalme_Renso_Resume.pdf); while it is empty the hero button prints the built-in resume instead. ojt.hours = required OJT hours (e.g. '486 hours'); ojt.window = when you can start and end; ojt.setup = Onsite / Hybrid / Remote; ojt.commute = cities you can reach; ojt.moa = e.g. 'DLSL endorsement letter available'. certs[].verifyUrl = the Credly / NetAcad link that proves the certificate (the Cisco images show a Cert ID at the bottom); a 'Verify credential' button appears once it is set. about.story = one or two sentences in your own words about what pulled you into IT. education[].details = short bullet facts; elementary and secondary stay empty until you confirm them. projects[0] = the capstone case study (Projects section, skill evidence { project: 'capstone' }, printable resume, terminal `show vlan brief` / `cat capstone.md`); its vlans and rules come from the final paper (Tables 4, 12 and 13), so keep them matching the paper. mine[] is only what you did yourself; teamParts and results stay credited to the team. The hero '7 VLANs I Configured' stat is plain HTML in Hero.astro. analytics.goatcounter = your GoatCounter site code, if you decide to use it. Keep valid JSON: double quotes, no trailing commas.",
+  "_readme": "Renso: this file (src/data/portfolio.json) is the one place to edit the facts on the site. It feeds the certificate cards, flip-card backs, certificate pop-up, education details, hero stats, internship snapshot, contact links and the printable resume. Any empty string or empty list renders NOTHING on the page, so only fill a slot with something true. resume.pdf = path of a 1-page PDF you add to the repo (for example assets/Casalme_Renso_Resume.pdf); while it is empty the hero button prints the built-in resume instead. ojt.hours = required OJT hours (e.g. '486 hours'); ojt.window = when you can start and end; ojt.setup = Onsite / Hybrid / Remote; ojt.commute = cities you can reach; ojt.moa = e.g. 'DLSL endorsement letter available'. certs[].verifyUrl = the Credly / NetAcad link that proves the certificate (the Cisco images show a Cert ID at the bottom); a 'Verify credential' button appears once it is set. about.story = one or two sentences in your own words about what pulled you into IT. education[].details = short bullet facts; elementary and secondary stay empty until you confirm them. projects = the ePortfolio card and the capstone case study (Projects section, skill evidence { project: 'capstone' }, printable resume, terminal `show vlan brief` / `cat capstone.md`); its vlans and rules come from the final paper (Tables 4, 12 and 13), so keep them matching the paper. mine[] is only what you did yourself; teamParts and results stay credited to the team. The hero '7 VLANs I Configured' stat is plain HTML in Hero.astro. analytics.goatcounter = your GoatCounter site code, if you decide to use it. Keep valid JSON: double quotes, no trailing commas.",
   "person": {
     "name": "Renso Anthony L. Casalme",
     "school": "De La Salle Lipa",
@@ -24,11 +24,85 @@
     "moa": ""
   },
   "interests": [
-    "IT Support",
-    "Networking",
-    "Cybersecurity"
+    "Software Development",
+    "Web Development",
+    "QA Testing"
   ],
   "skills": [
+    {
+      "id": "python",
+      "name": "Python Programming",
+      "service": "python",
+      "port": "8000/tcp",
+      "state": "open",
+      "evidence": [
+        {
+          "cert": "cisco-python-essentials-1"
+        },
+        {
+          "cert": "cisco-python-essentials-2"
+        }
+      ]
+    },
+    {
+      "id": "web",
+      "name": "Web Development (AI-assisted)",
+      "service": "web-dev",
+      "port": "80/tcp",
+      "state": "open",
+      "evidence": [
+        {
+          "project": "eportfolio",
+          "label": "This website"
+        }
+      ]
+    },
+    {
+      "id": "qa",
+      "name": "System Testing",
+      "service": "system-testing",
+      "port": "8080/tcp",
+      "state": "open",
+      "evidence": [
+        {
+          "project": "capstone",
+          "label": "Capstone · test weeks + defense"
+        }
+      ]
+    },
+    {
+      "id": "db",
+      "name": "Databases (MySQL, SQL Server)",
+      "service": "mysql/mssql",
+      "port": "3306/tcp",
+      "state": "filtered",
+      "evidence": [],
+      "note": "used in school; no project on this page yet"
+    },
+    {
+      "id": "troubleshoot",
+      "name": "Technical Troubleshooting",
+      "service": "troubleshooting",
+      "port": "7/tcp",
+      "state": "filtered",
+      "evidence": [],
+      "note": "learning: no certificate yet"
+    },
+    {
+      "id": "comms",
+      "name": "Workplace Communication",
+      "service": "communication",
+      "port": "5060/udp",
+      "state": "open",
+      "evidence": [
+        {
+          "cert": "accenture-s2s-14"
+        },
+        {
+          "cert": "accenture-s2s-58"
+        }
+      ]
+    },
     {
       "id": "vlan",
       "name": "VLAN Segmentation",
@@ -81,6 +155,18 @@
       ]
     },
     {
+      "id": "threats",
+      "name": "Cyber Threat Awareness",
+      "service": "threat-awareness",
+      "port": "514/udp",
+      "state": "open",
+      "evidence": [
+        {
+          "cert": "cisco-cyber-threat-management"
+        }
+      ]
+    },
+    {
       "id": "support",
       "name": "Customer Support",
       "service": "customer-support",
@@ -94,118 +180,84 @@
           "cert": "accenture-s2s-58"
         }
       ]
-    },
-    {
-      "id": "troubleshoot",
-      "name": "Technical Troubleshooting",
-      "service": "troubleshooting",
-      "port": "7/tcp",
-      "state": "filtered",
-      "evidence": [],
-      "note": "learning: no certificate yet"
-    },
-    {
-      "id": "python",
-      "name": "Python Programming",
-      "service": "python",
-      "port": "8000/tcp",
-      "state": "open",
-      "evidence": [
-        {
-          "cert": "cisco-python-essentials-1"
-        },
-        {
-          "cert": "cisco-python-essentials-2"
-        }
-      ]
-    },
-    {
-      "id": "threats",
-      "name": "Cyber Threat Awareness",
-      "service": "threat-awareness",
-      "port": "514/udp",
-      "state": "open",
-      "evidence": [
-        {
-          "cert": "cisco-cyber-threat-management"
-        }
-      ]
-    },
-    {
-      "id": "comms",
-      "name": "Workplace Communication",
-      "service": "communication",
-      "port": "5060/udp",
-      "state": "open",
-      "evidence": [
-        {
-          "cert": "accenture-s2s-14"
-        },
-        {
-          "cert": "accenture-s2s-58"
-        }
-      ]
     }
   ],
   "roles": [
     {
-      "id": "helpdesk",
-      "label": "IT Support",
+      "id": "dev",
+      "label": "Software Dev",
       "skills": [
-        "support",
+        "python",
+        "db",
+        "troubleshoot"
+      ],
+      "certs": [
+        "cisco-python-essentials-1",
+        "cisco-python-essentials-2"
+      ],
+      "project": true,
+      "weekOne": "",
+      "toLearn": ""
+    },
+    {
+      "id": "web",
+      "label": "Web Dev",
+      "skills": [
+        "web",
+        "python"
+      ],
+      "certs": [
+        "accenture-s2s-58"
+      ],
+      "project": true,
+      "weekOne": "",
+      "toLearn": ""
+    },
+    {
+      "id": "qa",
+      "label": "QA Testing",
+      "skills": [
+        "qa",
         "troubleshoot",
-        "comms",
-        "ad"
+        "comms"
       ],
       "certs": [
         "accenture-s2s-14",
         "accenture-s2s-58"
       ],
+      "project": true,
       "weekOne": "",
-      "toLearn": "",
-      "project": true
+      "toLearn": ""
     },
     {
-      "id": "noc",
-      "label": "Network (NOC)",
+      "id": "net",
+      "label": "IT / Network",
       "skills": [
-        "netsec",
-        "troubleshoot",
-        "python",
         "vlan",
-        "firewall"
-      ],
-      "certs": [
-        "cisco-cyber-threat-management",
-        "cisco-python-essentials-1",
-        "cisco-python-essentials-2"
-      ],
-      "lab": true,
-      "weekOne": "",
-      "toLearn": "",
-      "project": true
-    },
-    {
-      "id": "soc",
-      "label": "Security (SOC)",
-      "skills": [
-        "threats",
+        "firewall",
+        "ad",
         "netsec",
-        "python",
-        "firewall"
+        "threats",
+        "support"
       ],
       "certs": [
         "cisco-cyber-threat-management",
-        "cisco-python-essentials-1",
-        "cisco-python-essentials-2"
+        "accenture-s2s-14",
+        "accenture-s2s-58"
       ],
+      "project": true,
       "lab": true,
       "weekOne": "",
-      "toLearn": "",
-      "project": true
+      "toLearn": ""
     }
   ],
   "tools": [
+    "Visual Studio Code",
+    "Figma",
+    "Claude AI",
+    "Python",
+    "MySQL",
+    "SQL Server",
     "pfSense",
     "TP-Link JetStream managed switch",
     "MikroTik RouterOS (Hotspot)",
@@ -214,8 +266,7 @@
     "Nmap",
     "Wireshark",
     "Windows Event Viewer",
-    "ping · ipconfig · Test-NetConnection",
-    "Python"
+    "ping · ipconfig · Test-NetConnection"
   ],
   "learningNext": [],
   "labs": [],
@@ -372,16 +423,62 @@
   },
   "projects": [
     {
+      "id": "eportfolio",
+      "kicker": "Personal Project · 2026",
+      "title": "ePortfolio Website",
+      "year": 2026,
+      "team": "Solo project · AI-assisted development with Claude",
+      "link": "https://rensoanthonycasalme.github.io/",
+      "source": "https://github.com/rensoanthonycasalme/rensoanthonycasalme.github.io",
+      "summary": "The site you are on. I built it by directing an AI coding assistant: I decided what it should do and how it should look, and checked every feature until it worked as intended.",
+      "mine": [
+        {
+          "tag": "Mine",
+          "text": "Set the requirements and content, and wrote the prompts for every feature and fix."
+        },
+        {
+          "tag": "Mine",
+          "text": "Checked each change in the browser and asked for fixes until the features worked as intended."
+        },
+        {
+          "tag": "Mine",
+          "text": "Published it on GitHub Pages and keep it up to date with new content."
+        },
+        {
+          "tag": "AI",
+          "text": "The code (Astro, JavaScript and CSS) was generated by Claude from my prompts."
+        }
+      ],
+      "features": [
+        "IPv4 subnet calculator with a quiz",
+        "Network break/fix troubleshooting lab",
+        "Browser terminal with real commands",
+        "Capstone case study with a firewall rule checker",
+        "Light and dark themes, reduced-motion support",
+        "Printable one-page résumé"
+      ],
+      "stack": [
+        "Claude AI",
+        "Astro",
+        "GitHub Pages",
+        "GitHub Actions"
+      ]
+    },
+    {
       "id": "capstone",
-      "kicker": "Capstone Project · 2026",
+      "kicker": "Capstone Project · 2025–2026",
       "title": "Academic Wi-Fi Security System",
       "official": "NIST Cybersecurity Framework Based Authentication, Network Segmentation, and Encrypted Session Monitoring System for the Academic Wi-Fi Network of Saint Joseph College of Rosario Batangas Inc.",
       "client": "Saint Joseph College of Rosario Batangas Inc.",
-      "year": 2026,
+      "year": "2025–2026",
       "team": "Team of 4 · I built the system with one teammate",
       "problem": "The school’s Wi-Fi was one flat network with voucher logins: no directory accounts, no separation between students, staff and servers, no intrusion detection and no live view of who was connected.",
       "solution": "We replaced it with a segmented network. Users sign in through a captive portal with their Active Directory account, each one lands in the VLAN of their role, and a default-deny firewall decides what that VLAN can reach.",
       "mine": [
+        {
+          "tag": "Mine",
+          "text": "Tested the system during the test weeks and at the final defense, checking that its features worked as intended."
+        },
         {
           "tag": "Mine",
           "text": "Designed and configured the seven role-based VLANs on the 802.1Q managed switch and pfSense, with an IP addressing plan and a DHCP scope for each one."

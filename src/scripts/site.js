@@ -484,7 +484,7 @@ function pdMotion() {
 })();
 
 /* ══════════════════════════════════════════════════════════
-   FEATURE 52 — ROLE LENS (?role=helpdesk | noc | soc)
+   FEATURE 52 — ROLE LENS (?role=dev | web | qa | net)
    Highlights the skills, scan rows and certificates that matter for
    one kind of internship, dims the rest and moves matches first.
    No new animation: classes, CSS order and a filter. The optional
@@ -604,11 +604,10 @@ ScrollTrigger.create({
   if (!el) return;
   /* honest lines only: each one is backed by something on this page */
   const roles = [
-    'Aspiring IT Support / Network Intern',
-    'Networking & Security Enthusiast',
-    'Capstone: VLANs · pfSense · Active Directory',
-    'Cisco NetAcad Learner',
+    'Aspiring Software Developer / QA Intern',
     'Python Essentials 1 & 2 Completer',
+    'AI-Assisted Web Development',
+    'Capstone: Co-built & Tested',
     'Continuous Learner'
   ];
   let i = 0, on = false;

@@ -4,15 +4,15 @@
 
 ![Renso Anthony L. Casalme: BS Information Technology, De La Salle Lipa, Class of 2027](public/og.jpg)
 
-Personal portfolio of a BS Information Technology student at De La Salle Lipa (Class of 2027), focused on IT support, networking and cybersecurity, and looking for an internship.
+Personal portfolio of a BS Information Technology student at De La Salle Lipa (Class of 2027), focused on software development, web development and QA testing, and looking for an internship.
 
 ## What's on the site
 
-- **Featured project:** the capstone (an AD-authenticated, seven-VLAN Wi-Fi network for a school) as a case study: what I did vs. what the team did, a clickable topology and VLAN explorer, a firewall rule check that walks pfSense's first-match rules, team test results and the limits found in testing.
+- **Projects:** this website (built through AI-assisted development with Claude, with a "who did what" list), and the capstone (an AD-authenticated, seven-VLAN Wi-Fi network for a school) as a case study: what I did vs. what the team did, a clickable topology and VLAN explorer, a firewall rule check that walks pfSense's first-match rules, team test results and the limits found in testing.
 - **Evidence scan:** skills shown as `nmap` output; every "open" skill links to the certificate or project that backs it, instead of self-rated percentages.
 - **Networking Lab:** a Break/Fix lab (find the misconfiguration that stops a ping: gateway, mask, route, ACL, DNS) and a Subnet Lab (IPv4 calculator that shows the binary AND, with a quiz).
 - **Terminal:** press <kbd>`</kbd> or the `>_` button. Try `help`, `show vlan brief`, `cat capstone.md`, `traceroute renso`, `ping`, `curl -I`, `dig github.com`, `audit`.
-- **Role lens:** `?role=helpdesk`, `?role=noc` or `?role=soc` highlights what matters for that kind of internship.
+- **Role lens:** `?role=dev`, `?role=web`, `?role=qa` or `?role=net` highlights what matters for that kind of internship.
 - **Security self-check:** footer button; real checks of this page (HTTPS, HSTS, CSP, third-party requests, cookies…) run in your browser.
 - **Recruiter CTF:** 3 flags are hidden on the site. The footer explains the rules.
 - Red and black theme (light variant available), print-ready one-page résumé, honest motion controls (respects "reduce motion").

@@ -150,7 +150,31 @@ html:not(.vx-ready) .vx-rules { display:none; }
 .cs-stack { display:flex; flex-wrap:wrap; gap:8px; }
 .cs-stack span { font-family:var(--fm); font-size:.72rem; color:var(--body); border:1px solid var(--border); border-radius:20px; padding:4px 11px; background:var(--bg); }
 
-/* role lens: NOC / SOC / IT Support all count the capstone */
+/* ePortfolio card (shorter than the case study) */
+.cs + .cs { margin-top:clamp(22px,3vw,32px); }
+.cs-compact > * + * { margin-top:clamp(18px,2.4vw,26px); }
+.cs-lede { font-size:.95rem; max-width:78ch; }
+.cs-tag.is-ai { color:var(--muted); border-style:dashed; }
+.cs-feats { list-style:disc; padding-left:18px; display:grid; gap:6px; font-size:.88rem; }
+.cs-feats li::marker { color:var(--accent); }
+.cs-foot { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px 20px; }
+.cs-links a { display:inline-flex; align-items:center; gap:8px; min-height:40px; padding:7px 14px; border-radius:var(--r);
+  border:1px solid var(--border); color:var(--txt); font-size:.86rem; font-weight:600; }
+.cs-links a:hover, .cs-links a:focus-visible { border-color:var(--accent); color:var(--accent); }
+
+/* capstone network detail, collapsed by default */
+.cs-more { border:1px solid var(--border); border-radius:var(--r); padding:0 18px; }
+.cs-more > summary { cursor:pointer; list-style:none; display:flex; align-items:center; gap:10px; min-height:52px;
+  font-family:var(--fd); font-weight:700; font-size:.98rem; color:var(--txt); }
+.cs-more > summary::-webkit-details-marker { display:none; }
+.cs-more > summary::after { content:'+'; margin-left:auto; font-family:var(--fm); font-size:1.2rem; color:var(--accent); }
+.cs-more[open] > summary::after { content:'−'; }
+.cs-more > summary i { color:var(--accent); }
+.cs-more > summary:focus-visible { outline:2px solid var(--accent); outline-offset:3px; border-radius:6px; }
+.cs-more[open] { padding-bottom:18px; }
+.cs-more > .cs-topo, .cs-more > .fw { margin-top:18px; }
+
+/* role lens: every role counts the projects */
 #projects.lens-match-section .cs { border-color:rgba(var(--accentRGB),.55); box-shadow:0 0 0 3px var(--glow), var(--sh-sm); }
 
 @media (max-width:860px) {
@@ -161,4 +185,5 @@ html:not(.vx-ready) .vx-rules { display:none; }
   .cs-box { padding:16px; }
   .vx-panel { grid-template-columns:1fr; }
   .cs-tile b { font-size:1.3rem; }
+  .cs-more > summary { font-size:.9rem; padding:10px 0; }
 }

@@ -4,7 +4,7 @@
     <div class="s-head gsap-reveal">
       <span class="s-label"><i class="fa-solid fa-code" aria-hidden="true"></i> Technical Competencies</span>
       <h2 class="s-title glitch" data-text="Skills &amp; Expertise">Skills &amp; Expertise</h2>
-      <p class="s-sub">What I can do, and the proof behind it: my capstone project for the networking skills, certificates for the rest.</p>
+      <p class="s-sub">What I can do, and the proof behind each skill: this website, my capstone project and my certificates.</p>
       <div class="divider"></div>
     </div>
     <!-- FEATURE 46 — evidence scan: rendered from PD.skills; every "open" row links to the certificate that backs it -->
@@ -12,7 +12,7 @@
       <div class="scan-bar" aria-hidden="true"><span></span><span></span><span></span><b>renso@dlsl: ~</b></div>
       <div class="scan-body">
         <p class="scan-cmd"><span class="scan-prompt" aria-hidden="true">$</span> nmap -sV --script=evidence renso</p>
-        <p class="scan-meta">Nmap scan report for renso (BSIT, De La Salle Lipa)<br>Host is up. Each open port is backed by a certificate or the capstone project on this page; select the evidence to open it.</p>
+        <p class="scan-meta">Nmap scan report for renso (BSIT, De La Salle Lipa)<br>Host is up. Each open port is backed by a certificate or a project on this page; select the evidence to open it.</p>
         <div class="scan-tablewrap">
           <table class="scan-table">
             <caption class="sr-only">Skills and the evidence behind each one</caption>
@@ -25,7 +25,37 @@
     </div>
 
     <div class="skills-grid" id="skillsGrid">
-      <!-- first three: backed by the capstone (see Projects.astro); the rest by certificates -->
+      <!-- same order as PD.skills: software first, then the networking skills backed by the capstone -->
+      <div class="skill-card gsap-skill" data-skill="python">
+        <div class="skill-icon"><i class="fa-brands fa-python" aria-hidden="true"></i></div>
+        <div class="skill-name">Python Programming</div>
+        <div class="skill-desc">Completed Python Essentials 1 &amp; 2 via Cisco NetAcad — variables, loops, functions, data handling, and modular coding.</div>
+      </div>
+      <div class="skill-card gsap-skill" data-skill="web">
+        <div class="skill-icon"><i class="fa-solid fa-code" aria-hidden="true"></i></div>
+        <div class="skill-name">Web Development</div>
+        <div class="skill-desc">Built this website through AI-assisted development with Claude: set the requirements, wrote the prompts and checked every feature in the browser.</div>
+      </div>
+      <div class="skill-card gsap-skill" data-skill="qa">
+        <div class="skill-icon"><i class="fa-solid fa-bug" aria-hidden="true"></i></div>
+        <div class="skill-name">System Testing</div>
+        <div class="skill-desc">Tested my capstone system during the test weeks and at the final defense, checking that each feature worked as intended.</div>
+      </div>
+      <div class="skill-card gsap-skill" data-skill="db">
+        <div class="skill-icon"><i class="fa-solid fa-database" aria-hidden="true"></i></div>
+        <div class="skill-name">Databases</div>
+        <div class="skill-desc">Used MySQL and SQL Server in school at a basic level.</div>
+      </div>
+      <div class="skill-card gsap-skill" data-skill="troubleshoot">
+        <div class="skill-icon"><i class="fa-solid fa-screwdriver-wrench" aria-hidden="true"></i></div>
+        <div class="skill-name">Technical Troubleshooting</div>
+        <div class="skill-desc">Capable of diagnosing technical problems, identifying root causes, and applying practical solutions efficiently.</div>
+      </div>
+      <div class="skill-card gsap-skill" data-skill="comms">
+        <div class="skill-icon"><i class="fa-solid fa-comments" aria-hidden="true"></i></div>
+        <div class="skill-name">Workplace Communication</div>
+        <div class="skill-desc">Developed through 72+ Accenture modules covering professional communication, productivity, and workplace readiness.</div>
+      </div>
       <div class="skill-card gsap-skill" data-skill="vlan">
         <div class="skill-icon"><i class="fa-solid fa-sitemap" aria-hidden="true"></i></div>
         <div class="skill-name">VLAN Segmentation</div>
@@ -46,30 +76,15 @@
         <div class="skill-name">Networking Security</div>
         <div class="skill-desc">Knowledgeable in basic network protection, secure access management, and defending digital systems against cyber threats.</div>
       </div>
-      <div class="skill-card gsap-skill" data-skill="support">
-        <div class="skill-icon"><i class="fa-solid fa-headset" aria-hidden="true"></i></div>
-        <div class="skill-name">Customer Support</div>
-        <div class="skill-desc">Able to communicate effectively with users, address concerns professionally, and provide clear technical assistance.</div>
-      </div>
-      <div class="skill-card gsap-skill" data-skill="troubleshoot">
-        <div class="skill-icon"><i class="fa-solid fa-screwdriver-wrench" aria-hidden="true"></i></div>
-        <div class="skill-name">Technical Troubleshooting</div>
-        <div class="skill-desc">Capable of diagnosing technical problems, identifying root causes, and applying practical solutions efficiently.</div>
-      </div>
-      <div class="skill-card gsap-skill" data-skill="python">
-        <div class="skill-icon"><i class="fa-brands fa-python" aria-hidden="true"></i></div>
-        <div class="skill-name">Python Programming</div>
-        <div class="skill-desc">Completed Python Essentials 1 &amp; 2 via Cisco NetAcad — variables, loops, functions, data handling, and modular coding.</div>
-      </div>
       <div class="skill-card gsap-skill" data-skill="threats">
         <div class="skill-icon"><i class="fa-solid fa-network-wired" aria-hidden="true"></i></div>
         <div class="skill-name">Cyber Threat Awareness</div>
         <div class="skill-desc">Trained in identifying cyber threats, digital security concepts, attack prevention, and securing information systems.</div>
       </div>
-      <div class="skill-card gsap-skill" data-skill="comms">
-        <div class="skill-icon"><i class="fa-solid fa-comments" aria-hidden="true"></i></div>
-        <div class="skill-name">Workplace Communication</div>
-        <div class="skill-desc">Developed through 72+ Accenture modules covering professional communication, productivity, and workplace readiness.</div>
+      <div class="skill-card gsap-skill" data-skill="support">
+        <div class="skill-icon"><i class="fa-solid fa-headset" aria-hidden="true"></i></div>
+        <div class="skill-name">Customer Support</div>
+        <div class="skill-desc">Able to communicate effectively with users, address concerns professionally, and provide clear technical assistance.</div>
       </div>
     </div>
 

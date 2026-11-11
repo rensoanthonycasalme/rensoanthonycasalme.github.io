@@ -1,9 +1,11 @@
 ---
-/* FEATURE 57 — FEATURED PROJECT: the capstone case study, rendered at build time from
-   portfolio.json (projects[0]) so it reads fine without JS. src/scripts/projects.js adds
-   the VLAN explorer and the firewall rule check on top of this markup. */
+/* FEATURE 57 — PROJECTS: the ePortfolio card and the capstone case study, rendered at build
+   time from portfolio.json (projects) so they read fine without JS. src/scripts/projects.js
+   adds the VLAN explorer and the firewall rule check on top of this markup. */
 import data from '../data/portfolio.json';
-const p = data.projects[0];
+const site = data.projects.find((x) => x.id === 'eportfolio');
+const p = data.projects.find((x) => x.id === 'capstone');
+const tagClass = (t) => 'cs-tag ' + ({ Mine: 'is-mine', Helped: 'is-helped', AI: 'is-ai' }[t] || 'is-team');
 const vlanById = Object.fromEntries(p.vlans.map((v) => [v.id, v]));
 const ruleSets = [
   { key: 'students', vlan: vlanById[20] },
@@ -31,11 +33,40 @@ const devices = [
 <section id="projects">
   <div class="container">
     <div class="s-head gsap-reveal">
-      <span class="s-label"><i class="fa-solid fa-diagram-project" aria-hidden="true"></i> Featured Project</span>
-      <h2 class="s-title glitch" data-text="Capstone Case Study">Capstone Case Study</h2>
-      <p class="s-sub">A real network for a real client, built by me and one teammate. What I did, what the team did, and what still needs work.</p>
+      <span class="s-label"><i class="fa-solid fa-diagram-project" aria-hidden="true"></i> Projects</span>
+      <h2 class="s-title glitch" data-text="What I've Built">What I've Built</h2>
+      <p class="s-sub">A website I built through AI-assisted development, and a capstone system I co-built and tested. Each one says what was mine and what wasn't.</p>
       <div class="divider"></div>
     </div>
+
+    {site && (
+      <article class="cs cs-compact gsap-reveal" id="project-eportfolio" aria-labelledby="siteTitle">
+        <header class="cs-head">
+          <p class="cs-kicker">{site.kicker}</p>
+          <h3 class="cs-title" id="siteTitle">{site.title}</h3>
+          <p class="cs-team"><i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i> {site.team}</p>
+        </header>
+        <p class="cs-lede">{site.summary}</p>
+        <div class="cs-split">
+          <div class="cs-box cs-mine">
+            <h4 class="cs-h"><i class="fa-solid fa-user" aria-hidden="true"></i> Who did what</h4>
+            <ul class="cs-list">
+              {site.mine.map((m) => <li><span class={tagClass(m.tag)}>{m.tag}</span><span>{m.text}</span></li>)}
+            </ul>
+          </div>
+          <div class="cs-box">
+            <h4 class="cs-h"><i class="fa-solid fa-list-check" aria-hidden="true"></i> Features</h4>
+            <ul class="cs-feats">{site.features.map((t) => <li>{t}</li>)}</ul>
+          </div>
+        </div>
+        <div class="cs-foot">
+          <div class="cs-stack" aria-label="Built with">{site.stack.map((t) => <span>{t}</span>)}</div>
+          <div class="cs-links">
+            <a href={site.source} target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github" aria-hidden="true"></i> Source on GitHub</a>
+          </div>
+        </div>
+      </article>
+    )}
 
     <article class="cs gsap-reveal" id="project-capstone" aria-labelledby="csTitle">
       <header class="cs-head">
@@ -55,7 +86,7 @@ const devices = [
           <h4 class="cs-h"><i class="fa-solid fa-user" aria-hidden="true"></i> My part</h4>
           <ul class="cs-list">
             {p.mine.map((m) => (
-              <li><span class={'cs-tag ' + (m.tag === 'Mine' ? 'is-mine' : 'is-helped')}>{m.tag}</span><span>{m.text}</span></li>
+              <li><span class={tagClass(m.tag)}>{m.tag}</span><span>{m.text}</span></li>
             ))}
           </ul>
         </div>
@@ -67,6 +98,9 @@ const devices = [
         </div>
       </div>
 
+      <!-- the network detail is folded away: it backs the networking skills, which are secondary now -->
+      <details class="cs-more" id="capstoneNet">
+      <summary><i class="fa-solid fa-network-wired" aria-hidden="true"></i> Network details: topology, VLAN explorer and firewall rule check</summary>
       <!-- topology + VLAN explorer -->
       <div class="cs-topo">
         <h4 class="cs-h">Network topology</h4>
@@ -181,6 +215,8 @@ const devices = [
           </div>
         ))}
       </div>
+
+      </details>
 
       <div class="cs-results">
         <h4 class="cs-h">Results <span class="cs-h-note">· team</span></h4>
